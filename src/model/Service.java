@@ -8,6 +8,7 @@ public class Service {
 	private float price;
 	private String hour;
 	private Clinic clinic;
+	private int id;
 	private int IdClinic;
 	
 	Scanner ler = new Scanner(System.in);
@@ -17,28 +18,29 @@ public class Service {
 	}
 	
 	public void registerNewService() {
-		String n;
-		float p;
-		String h;
-		int id;
 		
 		System.out.println("===SERVIÇOS===");
+		ler.nextLine();
 		
 		System.out.println("Nome: ");
-		n = ler.next();
+		String n = ler.nextLine();
 		this.setName(n);
 		
 		System.out.println("Preço: ");
-		p = ler.nextFloat();
+		float p = ler.nextFloat();
 		this.setPrice(p);
 		
+		ler.nextLine();
+		
 		System.out.println("Hora: ");
-		h = ler.next();
+		String h = ler.nextLine();
 		this.setHour(h);
 		
 		System.out.println("Clinica [cnpj]: ");
-		id = ler.nextInt();
+		int id = ler.nextInt();
 		this.setIdClinic(id);
+		
+		ler.reset();
 	}
 	
 	public String getName() {
@@ -60,6 +62,14 @@ public class Service {
 		this.hour = hour;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Clinic getClinic() {
 		return clinic;
 	}

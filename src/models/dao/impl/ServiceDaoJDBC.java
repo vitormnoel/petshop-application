@@ -25,7 +25,7 @@ public class ServiceDaoJDBC implements ServiceDao{
 
 	@Override
 	public void insert(Service obj) {
-PreparedStatement st = null;
+		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement(
@@ -65,13 +65,13 @@ PreparedStatement st = null;
 			st = conn.prepareStatement(
 					"update service "
 					+"set name= ?, price= ?, service_time= ?  "
-					+"where name = ?"
+					+"where id = ?"
 					);
 
 			st.setString(1, obj.getName());
 			st.setDouble(2, obj.getPrice());
 			st.setString(3, obj.getHour());
-			st.setString(4, obj.getName());
+			st.setInt(4, obj.getId());
 			
 			st.executeUpdate();
 		}
@@ -138,6 +138,7 @@ PreparedStatement st = null;
 
 	private Service instanceService(ResultSet rs, Clinic clinic) throws SQLException {
 		Service ser = new Service();
+		ser.setId(rs.getInt("service.id"));
 		ser.setName(rs.getString("service.name"));
 		ser.setHour(rs.getString("service.service_time"));
 		ser.setPrice(rs.getFloat("service.price"));
@@ -155,7 +156,53 @@ PreparedStatement st = null;
 		
 		return clinic;
 	}
-
+	
+	@Override
+	public Service findById(int id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("select * from service join clinic on id_clinic = cnpj "
+										+ "where id = ? ");
+								
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			
+			if(rs.next()) {
+				Clinic cli = instanceCli(rs);
+				
+				Service ser = new Service();
+				ser.setId(rs.getInt("service.id"));
+				ser.setName(rs.getString("service.name"));
+				ser.setPrice(rs.getFloat("service.price"));
+				ser.setHour(rs.getString("service.service_time"));
+				ser.setIdClinic(rs.getInt("service.id_clinic"));
+				ser.setClinic(cli);
+				
+				return ser;
+			}
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+		return null;
+	}
+	
+	private Clinic instanceCli(ResultSet rs) throws SQLException {
+		Clinic clinic = new Clinic();
+		clinic.setName(rs.getString("clinic.name"));
+		clinic.setCnpj(rs.getInt("clinic.cnpj"));
+		clinic.setAdress(rs.getString("clinic.adress"));
+		clinic.setTel(rs.getInt("clinic.tel"));
+		
+		return clinic;
+	}
+	
 	@Override
 	public List<Service> findAll() {
 		PreparedStatement st = null;

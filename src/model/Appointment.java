@@ -19,27 +19,24 @@ public class Appointment {
 	}
 	
 	public void newAppointment() {
-		String d;
-		String h;
-		Integer v;
-		Integer a;
 		
 		System.out.println("===CONSULTAS===");
+		ler.nextLine();
 		
 		System.out.println("Data: ");
-		d = ler.nextLine();
+		String d = ler.nextLine();
 		this.setDate(d);
 		
 		System.out.println("Hora: ");
-		h = ler.nextLine();
+		String h = ler.nextLine();
 		this.setHour(h);
 		
 		System.out.println("Veterinario: ");
-		v = ler.nextInt();
+		int v = ler.nextInt();
 		this.setVet(v);
 
 		System.out.println("Animal: ");
-		a = ler.nextInt();
+		int a = ler.nextInt();
 		this.setAnimal(a);
 	}
 	

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Scanner;
+
 public class Client extends User{
 	
 	private static final long serialVersionUID = 1L;
@@ -8,6 +10,8 @@ public class Client extends User{
 	private Integer id;
 	private Integer tel;
 	private String adress;
+	
+	Scanner ler = new Scanner(System.in);
 	
 	public Client() {
 	}
@@ -19,6 +23,45 @@ public class Client extends User{
 		this.setAdress(a);
 		this.setEmail(e);
 		this.setPass(p);
+	}
+	
+	public void registerNewUser() {
+		
+		System.out.println("****************");
+		System.out.println("--> CADASTRO");
+		
+		System.out.print("Nome: ");
+		String n = ler.nextLine();
+		this.setName(n);
+		ler.reset();
+
+		System.out.print("Endereço: ");
+		String a = ler.nextLine();
+		this.setAdress(a);
+		ler.reset();
+		
+		System.out.print("CPF: ");
+		int id = ler.nextInt();
+		this.setId(id);
+		ler.reset();
+		
+		System.out.print("Telefone: ");
+		int t = ler.nextInt();
+		this.setTel(t);
+		ler.reset();
+		
+		System.out.println("");
+		ler.nextLine();
+		
+		System.out.print("Email: ");
+		String e = ler.nextLine();
+		this.setEmail(e);
+		ler.reset();
+		
+		System.out.print("Senha: ");
+		String p = ler.nextLine();
+		this.setPass(p);
+		ler.reset();
 	}
 
 	public String getName() {

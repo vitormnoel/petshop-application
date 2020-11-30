@@ -92,7 +92,7 @@ public class ClientDaoJDBC implements ClientDao{
 			st.executeUpdate();
 		}
 		catch(SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbException("Cliente possui animais cadastrados. SQL Erro: "+e.getMessage());
 		}
 		finally {
 			DB.closeStatement(st);

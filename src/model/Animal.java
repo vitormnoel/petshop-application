@@ -26,27 +26,24 @@ public class Animal {
 
 
 	public void registerAnimal() {
-		int i;
-		String n;
-		String s;
-		Integer o;
 		
 		System.out.println("===REGISTRAR ANIMAL===");
+		ler.nextLine();
 		
 		System.out.println("Nome: ");
-		n = ler.next();
+		String n = ler.nextLine();
 		this.setName(n);
 		
 		System.out.println("Identificador: ");
-		i = ler.nextInt();
+		int i = ler.nextInt();
 		this.setId(i);
 		
 		System.out.println("[CPF] Dono: ");
-		o = ler.nextInt();
+		int o = ler.nextInt();
 		this.setOwner(o);
 		
 		System.out.println("Especie: ");
-		s = ler.next();
+		String s = ler.next();
 		this.setSpecies(s);
 	}
 	

@@ -80,12 +80,10 @@ public class AppointmentDaoJDBC implements AppointmentDao{
 			}
 		}
 		catch(SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbException("Nome não existente em nosso banco de dados. SQL Erro: "+e.getMessage());
 		}
 		return null;
 	}
-	
-	
 
 	private Appointment instanceAppointment(ResultSet rs, Animal an, Vet v, Client cli) throws SQLException{
 		Appointment ap = new Appointment();

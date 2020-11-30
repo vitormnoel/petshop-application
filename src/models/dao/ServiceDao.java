@@ -10,5 +10,6 @@ public interface ServiceDao {
 	void update(Service obj);
 	void deleteByName(String name);
 	Service findByServiceName(String name);
+	Service findById(int id);
 	List<Service> findAll();
 }

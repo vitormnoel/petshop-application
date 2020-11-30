@@ -15,28 +15,27 @@ public class Clinic {
 		
 	}
 	
-	public void newClinic() {
-		String n;
-		Integer t;
-		String a;
-		Integer c;
+	public void registerNewClinic() {
 		
 		System.out.println("===CLINICA===");
+		ler.nextLine();
 		
 		System.out.println("Nome: ");
-		n = ler.next();
+		String n = ler.nextLine();
 		this.setName(n);
 		
 		System.out.println("Telefone: ");
-		t = ler.nextInt();
+		int t = ler.nextInt();
 		this.setTel(t);
 		
+		ler.nextLine();
+		
 		System.out.println("Endereço: ");
-		a = ler.next();
+		String a = ler.nextLine();
 		this.setAdress(a);
 		
 		System.out.println("CNPJ: ");
-		c = ler.nextInt();
+		int c = ler.nextInt();
 		this.setCnpj(c);
 	}
 	

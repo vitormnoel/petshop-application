@@ -8,6 +8,7 @@ public class Products {
     private int amount;
     private double price;
     private Integer cnpj;
+    private int id;
     private Clinic clinic;
     
 	Scanner ler = new Scanner(System.in);
@@ -16,27 +17,27 @@ public class Products {
     	
     }
     
-    public void produtos(){
-        String n;
-        String c;
-        int a;
-        double p;
-        
+    public void registerNewProducts(){
+    	
         System.out.println("----CADASTRAR PRODUTOS----");
+        ler.nextLine();
+        
         System.out.println("Nome: ");
-        n = ler.nextLine();
+        String n = ler.nextLine();
         this.setName(n);
         
         System.out.println("Categoria: ");
-        c = ler.nextLine();
+        String c = ler.nextLine();
         this.setcategory(c);
         
         System.out.println("Quantidade: ");
-        a = ler.nextInt();
+        int a = ler.nextInt();
         this.setamount(a);
         
+        ler.reset();
+        
         System.out.println("Preço: ");
-        p = ler.nextDouble();
+        double p = ler.nextDouble();
         this.setPrice(p);
     }
     
@@ -80,6 +81,14 @@ public class Products {
 		this.cnpj = cnpj;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Clinic getClinic() {
 		return clinic;
 	}
@@ -90,6 +99,6 @@ public class Products {
 
 	@Override
 	public String toString() {
-		return "\nProdutos=> \n[Nome: " + name + ", Categoria: " + category + ", Quantidade: " + amount + ", Preço: " + price + "]\n"+clinic;
+		return "\nProdutos=> \n[ID: "+ id +", Nome: " + name + ", Categoria: " + category + ", Quantidade: " + amount + ", Preço: " + price + "]\n"+clinic.getName();
 	}
 }

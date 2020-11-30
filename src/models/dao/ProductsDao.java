@@ -10,5 +10,6 @@ public interface ProductsDao {
 	void update(Products obj);
 	void deleteByName(String name);
 	Products findByName(String name);
+	Products findById(int id);
 	List<Products> findAll();
 }

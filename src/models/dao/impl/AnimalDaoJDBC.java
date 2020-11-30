@@ -95,9 +95,7 @@ public class AnimalDaoJDBC implements AnimalDao {
 		PreparedStatement st = null;
 		
 		try {
-			st = conn.prepareStatement(
-										"delete from animal where id = ?"	
-											);
+			st = conn.prepareStatement("delete from animal where id = ?");
 			
 			st.setInt(1, id);
 			

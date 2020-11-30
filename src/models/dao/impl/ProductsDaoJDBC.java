@@ -55,21 +55,20 @@ public class ProductsDaoJDBC implements ProductsDao{
 
 	@Override
 	public void update(Products obj) {
-PreparedStatement st = null;
+		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement(
 					"update product "
-					+"set name= ?, category= ?, price= ?, amount= ?, id_clinic= ? "
-					+"where cnpj = ?"
+					+"set name= ?, category= ?, price= ?, amount= ? "
+					+"where id= ?"
 					);
 
 			st.setString(1, obj.getName());
 			st.setString(2, obj.getcategory());
 			st.setDouble(3, obj.getPrice());
 			st.setInt(4, obj.getamount());
-			st.setInt(5, obj.getCnpj());
-			st.setInt(6, obj.getCnpj());
+			st.setInt(5, obj.getId());
 			
 			st.executeUpdate();
 		}
@@ -83,7 +82,7 @@ PreparedStatement st = null;
 
 	@Override
 	public void deleteByName(String name) {
-PreparedStatement st = null;
+		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement("delete from product where name = ?");
@@ -98,6 +97,44 @@ PreparedStatement st = null;
 		finally {
 			DB.closeStatement(st);
 		}
+	}
+	
+
+	@Override
+	public Products findById(int id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("select * from product join clinic on id_clinic = cnpj "
+										+ "where id = ? ");
+								
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			
+			if(rs.next()) {
+				Clinic cli = instanceCli(rs);
+				
+				Products pro = new Products();
+				pro.setId(rs.getInt("product.id"));
+				pro.setName(rs.getString("product.name"));
+				pro.setcategory(rs.getString("product.category"));
+				pro.setamount(rs.getInt("product.amount"));
+				pro.setPrice(rs.getFloat("product.price"));
+				pro.setCnpj(rs.getInt("product.id_clinic"));
+				pro.setClinic(cli);
+				
+				return pro;
+			}
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+		return null;
 	}
 
 	@Override
@@ -133,6 +170,7 @@ PreparedStatement st = null;
 
 	private Products instanceProducts(ResultSet rs, Clinic clinic) throws SQLException {
 		Products pro = new Products();
+		pro.setId(rs.getInt("product.id"));
 		pro.setName(rs.getString("product.name"));
 		pro.setcategory(rs.getString("product.category"));
 		pro.setamount(rs.getInt("product.amount"));
@@ -158,7 +196,7 @@ PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		try {
-			st = conn.prepareStatement("select * from product join clinic on cnpj = id_clinic");
+			st = conn.prepareStatement("select * from product join clinic on cnpj = id_clinic ");
 			
 			rs = st.executeQuery();
 			
@@ -175,6 +213,7 @@ PreparedStatement st = null;
 				}
 				
 				Products product = new Products();
+				product.setId(rs.getInt("product.id"));
 				product.setName(rs.getString("product.name"));
 				product.setPrice(rs.getDouble("product.price"));
 				product.setamount(rs.getInt("product.amount"));
@@ -193,5 +232,6 @@ PreparedStatement st = null;
 			DB.closeResultSet(rs);
 		}
 	}
+
 
 }
