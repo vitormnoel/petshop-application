@@ -53,19 +53,23 @@ constraint client foreign key(id_client) references client(id)
 );
 
 create table service(
-name varchar(30) primary key,
+id integer auto_increment,
+name varchar(30),
 price float,
 service_time time,
 id_clinic integer,
+primary key(id, name),
 constraint clinic foreign key(id_clinic) references clinic(cnpj)
 );
 
 create table product(
-name varchar(30) primary key,
+id integer auto_increment,
+name varchar(30),
 category varchar(20),
 price float,
 amount integer,
 id_clinic integer,
+primary key(id, name),
 constraint cnpj_clinic foreign key(id_clinic) references clinic(cnpj)
 );
 
@@ -93,18 +97,18 @@ insert into animal values
 insert into appointment values
 ('2020-01-11', '10:09:01', 1, 1),
 ('2020-01-12', '09:00:00', 2, 2),
-('2020-01-12', '08:18:00', 3, 2),
-('2020-01-12', '10:29:00', 4, 1),
-('2020-01-12', '11:05:00', 5, 2),
-('2020-01-12', '13:18:00', 6, 1),
-('2020-01-12', '14:05:00', 7, 2),
-('2020-01-12', '15:11:00', 1, 1),
-('2020-01-12', '16:10:00', 1, 1),
-('2020-01-12', '08:30:00', 2, 1),
-('2020-01-12', '09:40:00', 2, 1),
-('2020-01-12', '09:34:00', 3, 2),
-('2020-01-12', '13:05:00', 3, 2),
-('2020-01-12', '13:40:00', 3, 2);
+('2020-02-01', '08:18:00', 3, 2),
+('2020-02-02', '10:29:00', 4, 1),
+('2020-02-03', '11:05:00', 5, 2),
+('2020-03-31', '13:18:00', 6, 1),
+('2020-04-29', '14:05:00', 7, 2),
+('2020-05-23', '15:11:00', 1, 1),
+('2020-06-11', '16:10:00', 1, 1),
+('2020-06-10', '08:30:00', 2, 1),
+('2020-07-09', '09:40:00', 2, 1),
+('2020-07-25', '09:34:00', 3, 2),
+('2020-08-05', '13:05:00', 3, 2),
+('2020-09-01', '13:40:00', 3, 2);
 
 insert into client_animal values
 (11, 111222333,1),
@@ -116,23 +120,17 @@ insert into client_animal values
 (17, null, 4);
 
 insert into service values
-('Dog Taxi',20.00, '08:00', 999888777),
-('Consulta',100.00, '08:00', 999888777),
-('Banho',25.00, '08:00', 999888777),
-('Tosa',10.00, '08:00', 999888777);
+(null, 'Dog Taxi',20.00, '08:00', 999888777),
+(null, 'Consulta',100.00, '08:00', 999888777),
+(null, 'Banho',25.00, '08:00', 999888777),
+(null, 'Tosa',10.00, '08:00', 999888777);
 
 insert into product values
-('Ração Gato','Alimentação', 5.00, 30, 999888777),
-('Ração Cachorro','Alimentação', 8.00, 70, 999888777),
-('Ração Jabuti','Alimentação', 20.00, 32, 999888777),
-('Petisco Gato','Alimentação', 2.00, 12, 999888777),
-('Petisco Cachorro','Alimentação', 1.00, 23, 999888777),
-('Bola','Brinquedo', 3.00, 10, 999888777),
-('Coleira','Outros', 8.00, 28, 999888777),
-('Casinha','Outros', 34.00, 10, 999888777);
-
-select animal.owner_id, animal.id from client
-join animal 
-on animal.owner_id = client.id;
-
-select * from vet;
+(null, 'Ração Gato','Alimentação', 5.00, 30, 999888777),
+(null, 'Ração Cachorro','Alimentação', 8.00, 70, 999888777),
+(null, 'Ração Jabuti','Alimentação', 20.00, 32, 999888777),
+(null, 'Petisco Gato','Alimentação', 2.00, 12, 999888777),
+(null, 'Petisco Cachorro','Alimentação', 1.00, 23, 999888777),
+(null, 'Bola','Brinquedo', 3.00, 10, 999888777),
+(null, 'Coleira','Outros', 8.00, 28, 999888777),
+(null, 'Casinha','Outros', 34.00, 10, 999888777);
