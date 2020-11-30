@@ -1,0 +1,138 @@
+create database empresa;
+use empresa;
+
+create table clinic(
+name varchar(30),
+tel integer,
+adress varchar(50),
+cnpj integer primary key
+);
+
+create table vet(
+name varchar(50),
+id integer,
+tel integer,
+adress varchar(50),
+email varchar(60),
+pass varchar(20),
+vetID integer primary key
+);
+
+create table client(
+name varchar(50),
+id integer primary key,
+tel integer,
+adress varchar(50),
+email varchar(60),
+pass varchar(20)
+);
+
+create table animal(
+id integer primary key,
+name varchar(20),
+species varchar(20),
+owner_id integer,
+constraint id_dono foreign key(owner_id) references client(id)
+);
+
+create table appointment(
+date_query date,
+hour_query time,
+id integer,
+id_vet integer,
+constraint id_animal foreign key(id) references animal(id),
+constraint id_vet foreign key(id_vet) references vet(vetID)
+);
+
+create table client_animal(
+id integer primary key,
+id_client integer,
+id_animal integer,
+constraint animal foreign key(id_animal) references animal(id),
+constraint client foreign key(id_client) references client(id)
+);
+
+create table service(
+name varchar(30) primary key,
+price float,
+service_time time,
+id_clinic integer,
+constraint clinic foreign key(id_clinic) references clinic(cnpj)
+);
+
+create table product(
+name varchar(30) primary key,
+category varchar(20),
+price float,
+amount integer,
+id_clinic integer,
+constraint cnpj_clinic foreign key(id_clinic) references clinic(cnpj)
+);
+
+insert into clinic values
+('Pet', 25304090, 'Rua Principal, n1000, Centro', 999888777);
+
+insert into client values 
+('Vitor', 111222333, 981339118, 'Rua 1, n1, Setor', 'vitor@gmail.com', 'admin'),
+('Amanda', 666777888, 981772636, 'Rua 2, n2, Setor', 'amanda@gmail.com', 'abc'),
+('Pedro', 333444555, 981737474, 'Rua 3, n3, Setor', 'pedro@gmail.com', 'abda');
+
+insert into vet values 
+('José', 121212121, 986171916, 'Rua 11, n0, Centro', 'jose@gmail.com', 'aaa2', 1),
+('Maria', 232323232, 981442636, 'Rua 22, n12, PA', 'maria@gmail.com', 'aaa1', 2);
+
+insert into animal values
+(1, 'Lofi', 'Cachorro', 111222333),
+(2, 'Mel', 'Gato', 111222333),
+(3, 'Helena', 'Jabuti', 111222333),
+(4, 'Trovao', 'Cachorro', null),
+(5, 'Linda', 'Gato', 666777888),
+(6, 'Clarinha', 'Cachorro', 666777888),
+(7, 'Miau', 'Gato', 333444555);
+
+insert into appointment values
+('2020-01-11', '10:09:01', 1, 1),
+('2020-01-12', '09:00:00', 2, 2),
+('2020-01-12', '08:18:00', 3, 2),
+('2020-01-12', '10:29:00', 4, 1),
+('2020-01-12', '11:05:00', 5, 2),
+('2020-01-12', '13:18:00', 6, 1),
+('2020-01-12', '14:05:00', 7, 2),
+('2020-01-12', '15:11:00', 1, 1),
+('2020-01-12', '16:10:00', 1, 1),
+('2020-01-12', '08:30:00', 2, 1),
+('2020-01-12', '09:40:00', 2, 1),
+('2020-01-12', '09:34:00', 3, 2),
+('2020-01-12', '13:05:00', 3, 2),
+('2020-01-12', '13:40:00', 3, 2);
+
+insert into client_animal values
+(11, 111222333,1),
+(12, 111222333,2),
+(13, 111222333,3),
+(14, 333444555,7),
+(15, 666777888,5),
+(16, 666777888,6),
+(17, null, 4);
+
+insert into service values
+('Dog Taxi',20.00, '08:00', 999888777),
+('Consulta',100.00, '08:00', 999888777),
+('Banho',25.00, '08:00', 999888777),
+('Tosa',10.00, '08:00', 999888777);
+
+insert into product values
+('Ração Gato','Alimentação', 5.00, 30, 999888777),
+('Ração Cachorro','Alimentação', 8.00, 70, 999888777),
+('Ração Jabuti','Alimentação', 20.00, 32, 999888777),
+('Petisco Gato','Alimentação', 2.00, 12, 999888777),
+('Petisco Cachorro','Alimentação', 1.00, 23, 999888777),
+('Bola','Brinquedo', 3.00, 10, 999888777),
+('Coleira','Outros', 8.00, 28, 999888777),
+('Casinha','Outros', 34.00, 10, 999888777);
+
+select animal.owner_id, animal.id from client
+join animal 
+on animal.owner_id = client.id;
+
+select * from vet;
