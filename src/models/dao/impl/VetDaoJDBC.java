@@ -44,7 +44,7 @@ PreparedStatement st = null;
 				System.out.println("Inserido!");
 			}
 			else {
-				throw new DbException("ERRO: Nenhuma alteração.");
+				throw new DbException("ERRO: Nenhuma alteracao.");
 			}
 		}
 		catch (SQLException e){

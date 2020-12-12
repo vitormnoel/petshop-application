@@ -30,7 +30,7 @@ public class Clinic {
 		
 		ler.nextLine();
 		
-		System.out.println("Endereço: ");
+		System.out.println("Endereco: ");
 		String a = ler.nextLine();
 		this.setAdress(a);
 		
@@ -66,6 +66,6 @@ public class Clinic {
 
 	@Override
 	public String toString() {
-		return "\nClinica=> [Nome da filial: " + name + ", Tel: " + tel + ", Endereço: " + adress + ", CNPJ: " + cnpj + "]";
+		return "\nClinica=> [Nome da filial: " + name + ", Tel: " + tel + ", Endereco: " + adress + ", CNPJ: " + cnpj + "]";
 	}
 }

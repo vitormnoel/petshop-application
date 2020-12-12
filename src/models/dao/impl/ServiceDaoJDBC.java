@@ -29,11 +29,11 @@ public class ServiceDaoJDBC implements ServiceDao{
 		
 		try {
 			st = conn.prepareStatement(
-										"insert into service "
-										+"(name, price, service_time, id_clinic) "
-										+"values "
-										+"(?, ?, ?, ?)"
-										);
+                                                "insert into service "
+                                                +"(name, price, service_time, id_clinic) "
+                                                +"values "
+						+"(?, ?, ?, ?)"
+			);
 			
 			st.setString(1, obj.getName());
 			st.setDouble(2, obj.getPrice());
@@ -46,7 +46,7 @@ public class ServiceDaoJDBC implements ServiceDao{
 				System.out.println("Inserido!");
 			}
 			else {
-				throw new DbException("ERRO: Nenhuma alteração.");
+				throw new DbException("ERRO: Nenhuma alteraï¿½ï¿½o.");
 			}
 		}
 		catch (SQLException e){

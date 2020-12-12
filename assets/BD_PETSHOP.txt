@@ -3,15 +3,16 @@ use empresa;
 
 create table clinic(
 name varchar(30),
-tel integer,
+tel bigint,
 adress varchar(50),
-cnpj integer primary key
+cnpj bigint primary key
 );
 
 create table vet(
+num_controle integer,
 name varchar(50),
-id integer,
-tel integer,
+id bigint,
+tel bigint,
 adress varchar(50),
 email varchar(60),
 pass varchar(20),
@@ -19,9 +20,10 @@ vetID integer primary key
 );
 
 create table client(
+num_controle integer,
 name varchar(50),
-id integer primary key,
-tel integer,
+id bigint primary key,
+tel bigint,
 adress varchar(50),
 email varchar(60),
 pass varchar(20)
@@ -31,8 +33,8 @@ create table animal(
 id integer primary key,
 name varchar(20),
 species varchar(20),
-owner_id integer,
-constraint id_dono foreign key(owner_id) references client(id)
+owner_id bigint,
+constraint id_dono foreign key(owner_id) references client(id) on delete cascade
 );
 
 create table appointment(
@@ -40,16 +42,16 @@ date_query date,
 hour_query time,
 id integer,
 id_vet integer,
-constraint id_animal foreign key(id) references animal(id),
-constraint id_vet foreign key(id_vet) references vet(vetID)
+constraint id_animal foreign key(id) references animal(id) on delete cascade,
+constraint id_vet foreign key(id_vet) references vet(vetID) on delete cascade
 );
 
 create table client_animal(
 id integer primary key,
-id_client integer,
+id_client bigint,
 id_animal integer,
-constraint animal foreign key(id_animal) references animal(id),
-constraint client foreign key(id_client) references client(id)
+constraint animal foreign key(id_animal) references animal(id) on delete cascade,
+constraint client foreign key(id_client) references client(id) on delete cascade
 );
 
 create table service(
@@ -57,9 +59,9 @@ id integer auto_increment,
 name varchar(30),
 price float,
 service_time time,
-id_clinic integer,
+id_clinic bigint,
 primary key(id, name),
-constraint clinic foreign key(id_clinic) references clinic(cnpj)
+constraint clinic foreign key(id_clinic) references clinic(cnpj) on delete cascade
 );
 
 create table product(
@@ -68,22 +70,23 @@ name varchar(30),
 category varchar(20),
 price float,
 amount integer,
-id_clinic integer,
+id_clinic bigint,
 primary key(id, name),
-constraint cnpj_clinic foreign key(id_clinic) references clinic(cnpj)
+constraint cnpj_clinic foreign key(id_clinic) references clinic(cnpj) on delete cascade
 );
 
 insert into clinic values
 ('Pet', 25304090, 'Rua Principal, n1000, Centro', 999888777);
 
 insert into client values 
-('Vitor', 111222333, 981339118, 'Rua 1, n1, Setor', 'vitor@gmail.com', 'admin'),
-('Amanda', 666777888, 981772636, 'Rua 2, n2, Setor', 'amanda@gmail.com', 'abc'),
-('Pedro', 333444555, 981737474, 'Rua 3, n3, Setor', 'pedro@gmail.com', 'abda');
+(1,'Vitor', 111000222, 64981334418, 'Rua 1, n1, Setor', 'vitor@gmail.com', '123'),
+(3,'Adminstrador', 111222333, 64981339118, 'CENTRO', 'admin@admin.com', 'admin'),
+(1,'Amanda', 666777888, 64981772636, 'Rua 2, n2, Setor', 'amanda@gmail.com', 'abc'),
+(1,'Pedro', 333444555, 64981737474, 'Rua 3, n3, Setor', 'pedro@gmail.com', 'abda');
 
 insert into vet values 
-('José', 121212121, 986171916, 'Rua 11, n0, Centro', 'jose@gmail.com', 'aaa2', 1),
-('Maria', 232323232, 981442636, 'Rua 22, n12, PA', 'maria@gmail.com', 'aaa1', 2);
+(2, 'José', 121212121, 64986171916, 'Rua 11, n0, Centro', 'jose@gmail.com', 'aaa2', 1),
+(2, 'Maria', 232323232, 64981442636, 'Rua 22, n12, PA', 'maria@gmail.com', 'aaa1', 2);
 
 insert into animal values
 (1, 'Lofi', 'Cachorro', 111222333),

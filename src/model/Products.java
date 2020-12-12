@@ -36,9 +36,13 @@ public class Products {
         
         ler.reset();
         
-        System.out.println("Preço: ");
+        System.out.println("Preco: ");
         double p = ler.nextDouble();
         this.setPrice(p);
+        
+        System.out.println("Clinica: ");
+        int cnpj = ler.nextInt();
+        this.setCnpj(cnpj);
     }
     
     public void setName(String n){
@@ -99,6 +103,6 @@ public class Products {
 
 	@Override
 	public String toString() {
-		return "\nProdutos=> \n[ID: "+ id +", Nome: " + name + ", Categoria: " + category + ", Quantidade: " + amount + ", Preço: " + price + "]\n"+clinic.getName();
+		return "\nProdutos=> \n[ID: "+ id +", Nome: " + name + ", Categoria: " + category + ", Quantidade: " + amount + ", Preco: " + price + "]\n"+clinic.getName();
 	}
 }

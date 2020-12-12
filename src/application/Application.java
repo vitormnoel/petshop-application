@@ -22,20 +22,19 @@ import models.dao.ServiceDao;
 public class Application {
 	
 	public static void main(String[] args) {
-
-		Scanner ler = new Scanner(System.in);
+            
 		int op = 1;
 		
 		System.out.println("==========================");
 		System.out.println("==========================");
 		System.out.println("======= APLICATIVO =======");
 		System.out.println("==========================");
-	    System.out.println("==========================\n");
+                System.out.println("==========================\n");
 	    
-	    do {
+	    while(op!=0) {
 	    	
-	    	System.out.println("ESCOLHA UMA OPÇÃO:\n[1]CLIENTES\n[2]ANIMAIS\n"
-	    			+ "[3]CONSULTAR REGISTROS DE CLIENTES E ANIMAIS\n[4]CONSULTAS\n[5]PRODUTOS\n[6]SERVIÇOS\n[7]CLINICAS\n[0]SAIR");
+	    	System.out.println("ESCOLHA UMA OPCAO:\n[1]CLIENTES\n[2]ANIMAIS\n"
+	    			+ "[3]CONSULTAR REGISTROS DE CLIENTES E ANIMAIS\n[4]CONSULTAS\n[5]PRODUTOS\n[6]SERVIï¿½OS\n[7]CLINICAS\n[0]SAIR");
 	    	op = ler.nextInt();
 	    	
 	    	switch(op) {
@@ -53,15 +52,13 @@ public class Application {
 	    			break;
 	    		case 7: clinic();
 	    			break;
-	    		case 0: System.out.println("\n\n\n\n\nATÉ MAIS...");
+	    		case 0: System.out.println("\n\n\n\n\nATE MAIS...");
 	    			break;
 	    		default:
-	    			System.out.println("\n\n\nOPÇÃO INEXISTENTE\n\\n\\n");
+	    			System.out.println("\n\n\nOPCAO INEXISTENTE\n\\n\\n");
 	    	}
 	    	
-	    }while(op!=0);
-	    
-	    ler.close();
+	    }
 	}
 	
 	public static int aux = 1;
@@ -71,19 +68,18 @@ public class Application {
 		
 		ClientDao clientDao = DaoFactory.createClientDao();
 		
-		do{
+		while(aux!=0){
 			
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
+			System.out.println("- Qual operaco deseja fazer? ");
 			System.out.println("[1] Cadastrar cliente \n[2] Alterar cadastro \n"
 					+ "[3] Excluir cliente \n[4] Listar cadastrados \n[0] Voltar");
 			aux = ler.nextInt();
-			
+                        
+			Client client = new Client();
+                                
 			switch(aux) {
 			case 1:
-				
-				Client client = new Client();
-				
 				client.registerNewUser();
 				clientDao.insert(client);
 				
@@ -93,10 +89,11 @@ public class Application {
 				int i = ler.nextInt();
 				
 				client = clientDao.findById(i);
+                                
 				System.out.println(client);
 				ler.nextLine();
 				
-				System.out.println("Novo endereço: ");
+				System.out.println("Novo endereco: ");
 				String a = ler.nextLine();
 				
 				client.setAdress(a);
@@ -117,16 +114,34 @@ public class Application {
 				List<Client> list = clientDao.findAll();
 				
 				System.out.println("Clientes: ");
-				for(Client obj : list) {
-					System.out.println(obj);
-				}
+                                list.forEach((obj) -> {
+                                    System.out.println(obj);
+                                });
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+                        case 5:
+                                System.out.println("Email: ");
+                                String e = ler.next();
+                                
+                                System.out.println("Senha: ");
+                                String p = ler.next();
+                                
+                                client = clientDao.findByEmail(e, p);
+                                
+                                try{
+                                  if(e.equals(client.getEmail())){
+                                    System.out.println("Logado");
+                                } 
+                                }catch(NullPointerException ee){
+                                   System.out.println("Email ou senha errados");
+                                }
+                                
+                                break;
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
-		}while(aux!=0);
+		}
 		
     }
 	
@@ -136,7 +151,7 @@ public class Application {
 		
 		do {
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
+			System.out.println("- Qual operacao deseja fazer? ");
 			System.out.println("[1] Cadastrar animal \n[2] Alterar cadastro \n"
 					+ "[3] Listar cadastrados \n[0] Voltar");
 			aux = ler.nextInt();
@@ -171,12 +186,12 @@ public class Application {
 				List<Animal> list = animalDao.findAll();
 				
 				System.out.println("Animais: ");
-				for(Animal obj : list) {
-					System.out.println(obj);
-				}
+                                list.forEach((obj) -> {
+                                    System.out.println(obj);
+                        });
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
@@ -190,7 +205,7 @@ public class Application {
 		
 		do {
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
+			System.out.println("- Qual operacao deseja fazer? ");
 			System.out.println("[1] Lista de Donos e Pets \n[0] Voltar");
 			aux = ler.nextInt();
 			
@@ -200,12 +215,12 @@ public class Application {
 				
 				System.out.println("Lista de clientes e seus pets:::\n");
 				
-				for(Client_Animal obj : list) {
-					System.out.println(obj+"\n");
-				}
+                                list.forEach((obj) -> {
+                                    System.out.println(obj+"\n");
+                        });
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
@@ -219,7 +234,7 @@ public class Application {
 		
 		do {
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
+			System.out.println("- Qual operacao deseja fazer? ");
 			System.out.println("[1] Cadastrar consulta \n[2] Encontrar consulta"
 					+ "\n[3] Listar consultas \n[0] Voltar");
 			aux = ler.nextInt();
@@ -247,12 +262,12 @@ public class Application {
 				List<Appointment> list = appointmentDao.findAll();
 				
 				System.out.println("Animais: ");
-				for(Appointment obj : list) {
-					System.out.println(obj);
-				}
+                                list.forEach((obj) -> {
+                                    System.out.println(obj);
+                        });
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
@@ -267,7 +282,7 @@ public class Application {
 		do{
 			
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
+			System.out.println("- Qual operacao deseja fazer? ");
 			System.out.println("[1] Cadastrar produto \n[2] Alterar produto \n"
 					+ "[3] Excluir produto \n[4] Pesquisar produto \n[5] Listar produtos cadastrados \n[0] Voltar");
 			aux = ler.nextInt();
@@ -331,12 +346,12 @@ public class Application {
 				List<Products> list = productsDao.findAll();
 				
 				System.out.println("Clientes: ");
-				for(Products obj : list) {
-					System.out.println("ID: "+obj.getId()+" | Nome: "+obj.getName()+" | Quantidade: "+obj.getamount());
-				}
+                                list.forEach((obj) -> {
+                                    System.out.println("ID: "+obj.getId()+" | Nome: "+obj.getName()+" | Quantidade: "+obj.getamount());
+                        });
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
@@ -351,15 +366,14 @@ public class Application {
 		do{
 			
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
-			System.out.println("[1] Cadastrar serviço \n[2] Alterar serviço \n"
-					+ "[3] Excluir serviço \n[4] Pesquisar serviço \n[5] Listar serviços cadastrados \n[0] Voltar");
+			System.out.println("- Qual operacao deseja fazer? ");
+			System.out.println("[1] Cadastrar serviï¿½o \n[2] Alterar serviï¿½o \n"
+					+ "[3] Excluir serviï¿½o \n[4] Pesquisar serviï¿½o \n[5] Listar serviï¿½os cadastrados \n[0] Voltar");
 			aux = ler.nextInt();
-			
+			Service service = new Service();
+                        
 			switch(aux) {
 			case 1:
-				
-				Service service = new Service();
 				
 				service.registerNewService();
 				serviceDao.insert(service);
@@ -398,26 +412,25 @@ public class Application {
 				break;
 				
 			case 4:
-				
 				ler.nextLine();
 				System.out.println("Pesquisar por: ");
 				String name = ler.nextLine();
 				
 				service = serviceDao.findByServiceName(name);
 				ler.nextLine();
-				
+				System.out.println(""+service.getName());
 				break;
 			case 5:
 				
 				List<Service> list = serviceDao.findAll();
 				
 				System.out.println("Clientes: ");
-				for(Service obj : list) {
-					System.out.println("ID: "+obj.getId()+" | Nome: "+obj.getName()+" | Hora: "+obj.getHour());
-				}
+                                list.forEach((obj) -> {
+                                    System.out.println("ID: "+obj.getId()+" | Nome: "+obj.getName()+" | Hora: "+obj.getHour());
+                        });
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
@@ -432,7 +445,7 @@ public class Application {
 do{
 			
 			System.out.println("::::::::::::::::::");
-			System.out.println("- Qual operação deseja fazer? ");
+			System.out.println("- Qual operacao deseja fazer? ");
 			System.out.println("[1] Cadastrar clinica \n[2] Alterar dados da clinica \n"
 					+ "[3] Excluir clinica \n[4] Listar clinicas cadastradas \n[0] Voltar");
 			aux = ler.nextInt();
@@ -454,7 +467,7 @@ do{
 				System.out.println(clinic);
 				ler.nextLine();
 				
-				System.out.println("Novo endereço: ");
+				System.out.println("Novo endereco: ");
 				String a = ler.nextLine();
 				
 				clinic.setAdress(a);
@@ -474,16 +487,15 @@ do{
 				
 				List<Clinic> list = clinicDao.findAll();
 				
-				System.out.println("Clientes: ");
-				for(Clinic obj : list) {
-					System.out.println(obj);
-				}
+				System.out.println("Clinicas: ");
+                                list.forEach(System.out::println);
 				
 				break;
-			default: System.out.println("\n\nOpção invalida\n\n");
+			default: System.out.println("\n\nOpcao invalida\n\n");
 				break;
 			}
 			
 		}while(aux!=0);
 	}
+        
 }

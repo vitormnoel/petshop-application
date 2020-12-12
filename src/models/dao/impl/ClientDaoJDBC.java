@@ -111,7 +111,7 @@ public class ClientDaoJDBC implements ClientDao{
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			
-			if(rs.next()) { //se tiver resultado ele mostra na posição 1
+			if(rs.next()) { //se tiver resultado ele mostra na posiï¿½ï¿½o 1
 				Client cl = instanceCLient(rs);
 						
 				return cl;
@@ -134,7 +134,6 @@ public class ClientDaoJDBC implements ClientDao{
 		cl.setId(rs.getInt("id"));
 		cl.setAdress(rs.getString("adress"));
 		cl.setTel(rs.getInt("tel"));
-		
 		return cl;
 	}
 
@@ -223,5 +222,33 @@ public class ClientDaoJDBC implements ClientDao{
 			DB.closeResultSet(rs);
 		}
 	}
+
+    @Override
+    public Client findByEmail(String email, String senha) {
+        PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("select * from client where email = ? and pass = ?");
+			
+			st.setString(1, email);
+                        st.setString(2, senha);
+			rs = st.executeQuery();
+			
+			if(rs.next()) { //se tiver resultado ele mostra na posiï¿½ï¿½o 1
+				Client cl = instanceCLient(rs);
+					
+				return cl;
+			}
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+		return null;
+    }
 
 }

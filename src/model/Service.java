@@ -19,14 +19,14 @@ public class Service {
 	
 	public void registerNewService() {
 		
-		System.out.println("===SERVIÇOS===");
+		System.out.println("===SERVICOS===");
 		ler.nextLine();
 		
 		System.out.println("Nome: ");
 		String n = ler.nextLine();
 		this.setName(n);
 		
-		System.out.println("Preço: ");
+		System.out.println("Preco: ");
 		float p = ler.nextFloat();
 		this.setPrice(p);
 		
@@ -88,6 +88,6 @@ public class Service {
 
 	@Override
 	public String toString() {
-		return "\nServiço=>\n[Nome: " + name + ", Preço: " + price + ", Inicio do atendimento: " + hour +"]";
+		return "\nServico=>\n[Nome: " + name + ", Preco: " + price + ", Inicio do atendimento: " + hour +"]";
 	}
 }

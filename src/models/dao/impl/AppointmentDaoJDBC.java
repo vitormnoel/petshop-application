@@ -80,7 +80,7 @@ public class AppointmentDaoJDBC implements AppointmentDao{
 			}
 		}
 		catch(SQLException e) {
-			throw new DbException("Nome não existente em nosso banco de dados. SQL Erro: "+e.getMessage());
+			throw new DbException("Nome nao existente em nosso banco de dados. SQL Erro: "+e.getMessage());
 		}
 		return null;
 	}

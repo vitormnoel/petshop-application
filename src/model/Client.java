@@ -2,6 +2,10 @@ package model;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author Vitor Manoel
+ */
 public class Client extends User{
 	
 	private static final long serialVersionUID = 1L;
@@ -35,7 +39,7 @@ public class Client extends User{
 		this.setName(n);
 		ler.reset();
 
-		System.out.print("Endereço: ");
+		System.out.print("Endereï¿½o: ");
 		String a = ler.nextLine();
 		this.setAdress(a);
 		ler.reset();
@@ -99,7 +103,7 @@ public class Client extends User{
 	@Override
 	public String toString() {
 		return "\nCliente=> \n[Nome: " + name + ", CPF: " + id + ", Tel: " + tel
-				+ ", Endereço: (" + adress + ")]";
+				+ ", Endereï¿½o: (" + adress + ")]";
 	}
 
 	
