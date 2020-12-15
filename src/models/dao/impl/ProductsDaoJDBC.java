@@ -144,11 +144,11 @@ public class ProductsDaoJDBC implements ProductsDao{
 		
 		try {
 			st = conn.prepareStatement("select * from product "
-										+ "join clinic "
-										+ "on cnpj = id_clinic "
-										+ "where product.name = ? ");
+                                                    + "join clinic "
+                                                    + "on cnpj = id_clinic "
+                                                    + "where product.name like ? ");
 								
-			st.setString(1, name);
+			st.setString(1, "%"+name+"%");
 			rs = st.executeQuery();
 			
 			if(rs.next()) {

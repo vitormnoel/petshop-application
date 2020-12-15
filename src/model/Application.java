@@ -1,4 +1,4 @@
-package application;
+package model;
 
 import java.util.List;
 import java.util.Scanner;
@@ -376,12 +376,12 @@ public class Application {
 			case 1:
 				
 				service.registerNewService();
-				serviceDao.insert(service);
+                                serviceDao.insert(service);
 				
 				break;
 				
 			case 2:
-				System.out.println("Digite o ID do produto: ");
+				System.out.println("Digite o ID do servico: ");
 				int i = ler.nextInt();
 				
 				service = serviceDao.findById(i);

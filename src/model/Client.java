@@ -14,6 +14,7 @@ public class Client extends User{
 	private Integer id;
 	private Integer tel;
 	private String adress;
+        private int Controler;
 	
 	Scanner ler = new Scanner(System.in);
 	
@@ -45,8 +46,8 @@ public class Client extends User{
 		ler.reset();
 		
 		System.out.print("CPF: ");
-		int id = ler.nextInt();
-		this.setId(id);
+		int id1 = ler.nextInt();
+		this.setId(id1);
 		ler.reset();
 		
 		System.out.print("Telefone: ");
@@ -100,6 +101,14 @@ public class Client extends User{
 		this.adress = adress;
 	}
 
+    public int getControler() {
+        return Controler;
+    }
+
+    public void setControler(int Controler) {
+        this.Controler = Controler;
+    }
+       
 	@Override
 	public String toString() {
 		return "\nCliente=> \n[Nome: " + name + ", CPF: " + id + ", Tel: " + tel

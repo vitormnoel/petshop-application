@@ -29,8 +29,8 @@ public class ClientDaoJDBC implements ClientDao{
 		
 		try {
 			st = conn.prepareStatement("insert into client "
-										+"(name, id, tel, adress, email, pass) "
-										+"values (?, ?, ?, ?, ?, ?)");
+                                                    +"(name, id, tel, adress, email, pass, num_controle) "
+                                                    +"values (?, ?, ?, ?, ?, ?, ?)");
 			
 			st.setString(1, obj.getName());
 			st.setInt(2, obj.getId());
@@ -38,6 +38,7 @@ public class ClientDaoJDBC implements ClientDao{
 			st.setString(4, obj.getAdress());
 			st.setString(5, obj.getEmail());
 			st.setString(6, obj.getPass());
+                        st.setInt(7, obj.getControler());
 			
 			int row = st.executeUpdate();
 			
@@ -134,6 +135,7 @@ public class ClientDaoJDBC implements ClientDao{
 		cl.setId(rs.getInt("id"));
 		cl.setAdress(rs.getString("adress"));
 		cl.setTel(rs.getInt("tel"));
+                cl.setControler(rs.getInt("num_controle"));
 		return cl;
 	}
 
@@ -251,4 +253,23 @@ public class ClientDaoJDBC implements ClientDao{
 		return null;
     }
 
+    public ResultSet findByIden() {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement("select * from client");
+			
+			rs = st.executeQuery();
+			
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+		return rs;
+	}
 }

@@ -112,11 +112,11 @@ public class ServiceDaoJDBC implements ServiceDao{
 		
 		try {
 			st = conn.prepareStatement("select * from service "
-										+"join clinic "
-										+"on clinic.cnpj = service.id_clinic "
-										+"where service.name = ? ");
+                                                    +"join clinic "
+                                                    +"on clinic.cnpj = service.id_clinic "
+                                                    +"where service.name like ? ");
 			
-			st.setString(1, name);
+			st.setString(1, "%"+name+"%");
 			rs = st.executeQuery();
 			
 			if(rs.next()) {
